@@ -321,8 +321,14 @@ module[2] = function(owner, org, timeValue)
 	end
 
 	local k = halfValue2(o2[1], o2.range, o2.k)
-	
-	if o2[1] < 8 then
+
+	if o2[1] < 10 then
+		if org.isPly then
+			hg.StunPlayer(owner, 3)
+		end
+	end
+
+	if o2[1] < 12 then
 		org.needfake = true
 
 		if org.isPly then
