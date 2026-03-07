@@ -882,7 +882,7 @@ function SWEP:PlayEffects(trace, attacktype)
 
         owner:EmitSound(self.AttackHit, 50)
 
-		if self.weight >= 1.5 and self.DamageType ~= DMG_SLASH and tr.MatType ~= MAT_GLASS then
+		if self.weight >= 1.5 and self.DamageType ~= DMG_SLASH and trace.MatType ~= MAT_GLASS then
 			util.Decal("Impact.BluntAdd" .. math.random(bluntDecalsRand), trace.HitPos + trace.HitNormal, trace.HitPos - trace.HitNormal, owner)
 		end
     end
