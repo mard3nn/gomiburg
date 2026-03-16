@@ -501,9 +501,9 @@ local Angle, Vector, AngleRand, VectorRand, math, hook, util, game = Angle, Vect
 		if org.noradrenaline and org.noradrenaline > 0 and inertia_len > 0 then
 			inertia_len = inertia_len + 200 * math.Round(org.noradrenaline, 1)
 		end
-
-		mv:SetMaxSpeed(math.max(100, inertia_len))
-		mv:SetMaxClientSpeed(math.max(100, inertia_len))
+		
+		mv:SetMaxSpeed(inertia_len)
+		mv:SetMaxClientSpeed(inertia_len)
 		ply:SetMaxSpeed(math.max(100, inertia_len))
 		ply:SetJumpPower(DEFAULT_JUMP_POWER * math.min(k, 1.1) * (not ply:GetNWBool("TauntStopMoving", false) and 1 or 0) * (ply.organism.superfighter and 1.5 or 1) * (ply.JumpPowerMul or 1))
 
