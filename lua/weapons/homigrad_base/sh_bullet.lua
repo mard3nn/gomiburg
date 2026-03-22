@@ -151,25 +151,30 @@ local function callbackBullet(self, tr, dmg, force, bullet, penetration)
 				local hitPos2, dir2 = WorldToLocal(hitPos, dir:Angle(), ent:GetPos(), ent:GetAngles())
 				local _, hitNormal2 = WorldToLocal(hitPos, hitNormal:Angle(), ent:GetPos(), ent:GetAngles())
 				
+				local size = bullet.Diameter / 25.4 * 3
 				local dontadd = false
 				for i = 1, #hg.bulletholes do
-					if hitPos2:IsEqualTol(hg.bulletholes[i][1], bullet.Diameter / 25.4 * 3) then
+					if hitPos2:IsEqualTol(hg.bulletholes[i][1], size * 1.414) then --sqrt of 2, cuz it's a square
+						local lerp = size / (hg.bulletholes[i][5] + size)
+						--hg.bulletholes[i][1] = LerpVector(lerp, hitPos2, hg.bulletholes[i][1])
+						hg.bulletholes[i][5] = math.min(3, (size + hg.bulletholes[i][5]) * 0.9)
+						
+						if hg.bulletholes[i + 1] then
+							hg.bulletholes[i + 1][5] = math.min(3, (size + hg.bulletholes[i + 1][5]) * 0.9)
+						end
+
 						dontadd = true
 						break
 					end
 				end
-
-				if IsValid(ent) and hgIsDoor(ent) then
-					-- open areaportal
-				end
 				
 				if !dontadd then
 					local dist = hitPos:Distance(hit.HitPos)
-					table.insert(hg.bulletholes, {hitPos2, dir2, dist, hitNormal2, bullet.Diameter / 25.4 * 3, ent})
+					table.insert(hg.bulletholes, {hitPos2, dir2, dist, hitNormal2, size, ent})
 					
 					local hitPos2, dir2 = WorldToLocal(hit.HitPos, (-dir):Angle(), ent:GetPos(), ent:GetAngles())
 					local _, hitNormal2 = WorldToLocal(hit.HitPos, hit.HitNormal:Angle(), ent:GetPos(), ent:GetAngles())
-					table.insert(hg.bulletholes, {hitPos2, dir2, dist, hitNormal2, bullet.Diameter / 25.4 * 3, ent})
+					table.insert(hg.bulletholes, {hitPos2, dir2, dist, hitNormal2, size, ent})
 
 					if hgIsDoor(ent) then -- open the areaportal so it can be seen through
 						for i, enta in ipairs(ents.FindByClass("func_areaportal")) do
@@ -187,9 +192,9 @@ local function callbackBullet(self, tr, dmg, force, bullet, penetration)
 						table.remove(hg.bulletholes, 1)
 						table.remove(hg.bulletholes, 1)
 					end
-
-					SetNetVar("BulletHoles", hg.bulletholes, nil, true)
 				end
+
+				SetNetVar("BulletHoles", hg.bulletholes, nil, true)
 			end
 
 			local tr = util.TraceLine( {
