@@ -1,4 +1,4 @@
-<img src="https://i.ibb.co/pcmhD5r/Frame-85.png" alt="banner">
+<img src="https://i.ibb.co/qF53P025/Frame-85.png" alt="banner">
 
 > \[!WARNING]
 > тпикрупик
